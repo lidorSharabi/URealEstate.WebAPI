@@ -35,5 +35,12 @@ namespace WebApiURealEstate.Controllers
         public void Delete(int id)
         {
         }
+
+        [HttpGet]
+        [Route("api/values/lidor")]
+        public bool lidor()
+        {
+            return true;
+        }
     }
 }
