@@ -11,6 +11,8 @@ namespace WebApiURealEstate
     {
         public static void Register(HttpConfiguration config)
         {
+            //IMPORTANT(enable client to call web api)
+            config.EnableCors();
             // Web API configuration and services
             // Web API routes
             config.MapHttpAttributeRoutes();

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
+using WebApiURealEstate.App_Data;
 
 namespace WebApiURealEstate.Controllers
 {
+    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     public class ValuesController : ApiController
     {
         // GET api/values
@@ -40,7 +41,22 @@ namespace WebApiURealEstate.Controllers
         [Route("api/values/lidor")]
         public bool lidor()
         {
+            DataBaseHandler DBHandler = new DataBaseHandler();
+            //DBHandler.InsertUser();
+
             return true;
         }
+
+
+        //[HttpPost]
+        //[ActionName("createUser")]
+        ////[Route("api/values/createUser")]
+        //public IHttpActionResult createUser([FromBody]CreateUserRequest newUser)
+        //{
+        //    DataBaseHandler DBHandler = new DataBaseHandler();
+        //    DBHandler.InsertUser(newUser);
+
+        //    return Ok(true);
+        //}
     }
 }
