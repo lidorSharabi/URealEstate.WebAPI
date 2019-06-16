@@ -42,9 +42,9 @@ namespace WebApiURealEstate.App_Data
             //    "Values({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8})",
             //    user.id, user.name, user.rooms, user.location, user.email, user.price, user.typeId, user.saved, user.disliked);
 
-            string query = String.Format(@"INSERT INTO users (name, rooms, email, price, typeId, id)
-                Values('{0}', {1}, '{2}', {3}, {4}, {5})",
-                user.name, user.rooms, user.email, user.price, user.typeId, user.id);
+            string query = String.Format(@"INSERT INTO users (name, email, password, location, rooms, price)
+                Values('{0}', '{1}', '{2}', '{3}', {4}, {5})",
+                user.name, user.email, user.password, user.location, user.rooms, user.price);
 
             MySqlCommand command = new MySqlCommand(query, DBConnection.Connection);
             try
