@@ -1,4 +1,6 @@
-﻿namespace WebApiURealEstate.Models
+﻿using System.Collections.Generic;
+
+namespace WebApiURealEstate.Models
 {
     public class CreateUserRequest
     {
