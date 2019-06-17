@@ -53,8 +53,29 @@ namespace WebApiURealEstate.App_Data
             }
             catch (Exception ex)
             {
-                File.AppendAllText(path, "Server DB Error at RunQuery function" + ex.Message + Environment.NewLine);
+                //File.AppendAllText(path, "Server DB Error at RunQuery function" + ex.Message + Environment.NewLine);
             }
+        }
+
+        public List<string> GetLocations()
+        {
+            List<string> locations = new List<string> ();
+            try
+            {
+                    string query = "SELECT location FROM assets";
+                    var cmd = new MySqlCommand(query, DBConnection.Connection);
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        locations.Add(reader.GetString(0));
+                    }
+                    reader.Close();
+            }
+            catch (Exception ex)
+            {
+                //File.AppendAllText(path, "Server DB Error at GetLocations function" + ex.Message + Environment.NewLine);
+            }
+            return locations;
         }
 
         #region guessTheSongFunctions
