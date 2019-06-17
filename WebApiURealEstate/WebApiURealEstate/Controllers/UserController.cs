@@ -29,5 +29,14 @@ namespace WebApiURealEstate.Controllers
 
             return Ok(true);
         }
+
+        [HttpPost]
+        [Route("api/user/getUserResults")]
+        public IHttpActionResult getUserResults([FromBody]CreateUserRequest newUser)
+        {
+            DataBaseHandler DBHandler = new DataBaseHandler();
+            List<Asset> assetsList = DBHandler.GetUserResults(newUser);
+            return Ok(assetsList);
+        }
     }
 }

@@ -57,6 +57,55 @@ namespace WebApiURealEstate.App_Data
             }
         }
 
+        public List<Asset> GetUserResults(CreateUserRequest user)
+        {
+            string query = String.Format(@"SELECT * FROM assets a where a.rooms = {0} and price <= {1} and a.location LIKE '%{2}%' and typeId in {3};",
+                                user.rooms, user.price, user.location, FormatTypes(user.types));
+
+            MySqlCommand command = new MySqlCommand(query, DBConnection.Connection);
+            List<Asset> assetsList = new List<Asset>();
+            try
+            {
+                var reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    Asset asset = new Asset();
+                    asset.id = Int32.Parse(reader.GetString(0));
+                    asset.typeId = Int32.Parse(reader.GetString(1));
+                    asset.rooms = Int32.Parse(reader.GetString(2));
+                    asset.meters = Int32.Parse(reader.GetString(3));
+                    asset.floor = Int32.Parse(reader.GetString(4));
+                    asset.location = reader.GetString(5);
+                    asset.price = Int32.Parse(reader.GetString(6));
+                    assetsList.Add(asset);
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                File.AppendAllText(path, "Server DB Error at RunQuery function" + ex.Message + Environment.NewLine);
+            }
+            return assetsList;
+        }
+
+        private string FormatTypes(List<int> types)
+        {
+            string str = "(";
+            for(int i = 0; i < types.Count(); i++)
+            {
+                if(i != (types.Count() - 1))
+                {
+                    str += types[i].ToString() + ",";
+                }
+                else
+                {
+                    str += types[i].ToString();
+                }
+            }
+            str += ")";
+            return str;
+        }
+
         #region guessTheSongFunctions
         public void SaveUserData(string firstName, string lastName, DateTime? dateOfBirth, int genreID, int artistID)
         {
